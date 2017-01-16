@@ -8,7 +8,6 @@ login = False
 if len(sys.argv) == 2:
     server_port = int(sys.argv[1])
 elif len(sys.argv) == 4:
-    print '4'
     if sys.argv[2] == '-l':
         server_port = int(sys.argv[1])
         logFile = sys.argv[3]
@@ -18,6 +17,11 @@ elif len(sys.argv) == 4:
         print 'Please provide the correct arguments'
 else:
     print 'Please provide the correct arguments' 
+
+def addlog(logFile, data):
+    with open(logFile, 'a') as f:
+        f.write(data + '\n')
+        f.close
 
 server_address = ('localhost', server_port)
 print >>sys.stderr, 'Connecting to %s port %s' % server_address
@@ -29,16 +33,7 @@ while True:
         data = raw_input("Please enter a command: ")
         sock.sendall(data)
         if loging:
-            log = logs += data
-            open(logFile, "w")
-            write(log)
-
-
-
-        #data = sock.recv(1024)
-        #if logging:
-         #   logs += data
-            
+            addlog(logFile, data)
         if data == 'exit':
             print 'Client closing'
             break
@@ -50,9 +45,10 @@ while True:
         else:
             data = sock.recv(1024)
             print data
+            addlog(logFile, data)
             continue
-            sys.stout.close()
-            continue
+            
+            
     finally:
         'Something went wrong'
 

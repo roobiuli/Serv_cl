@@ -19,7 +19,6 @@ def listCurrentDir():
 
 def catFile(data):
 	filePath = data.split()
-	print os.path.isfile(filePath[1])
 	if os.path.isfile(filePath[1]):
 		print 'Sending', filePath[1]
 		fileContent = open(filePath[1], 'rb')
